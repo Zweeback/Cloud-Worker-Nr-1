@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-sqlalchemy
-psycopg2-binary
-langchain
-openai
-google-api-python-client
