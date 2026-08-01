@@ -37,8 +37,8 @@ def get_subworkers(db = Depends(get_db)):
     return workers
 
 @app.post("/api/subworkers")
-def create_subworker(worker: SubWorkerCreate):
-    new_worker = alice.spawn_subworker(worker.name, worker.task)
+def create_subworker(worker: SubWorkerCreate, db = Depends(get_db)):
+    new_worker = alice.spawn_subworker(worker.name, worker.task, db)
     return new_worker
 
 @app.get("/api/chats")
@@ -47,8 +47,8 @@ def get_chats(db = Depends(get_db)):
     return chats
 
 @app.post("/api/chats")
-def ingest_chat(chat: ChatIngest):
-    log = alice.ingest_ai_chat(chat.ai_source, chat.metadata_json, chat.content)
+def ingest_chat(chat: ChatIngest, db = Depends(get_db)):
+    log = alice.ingest_ai_chat(chat.ai_source, chat.metadata_json, chat.content, db)
     return log
 
 @app.get("/api/drive-search")
