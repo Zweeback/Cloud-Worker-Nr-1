@@ -6,9 +6,19 @@ client = TestClient(app)
 def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"status": "online", "agent": "Alice", "message": "Gatekeeper ist aktiv."}
+    assert "text/html" in response.headers["content-type"]
 
-def test_get_agent_status():
-    response = client.get("/agent/status")
+def test_get_subworkers():
+    response = client.get("/api/subworkers")
     assert response.status_code == 200
-    assert response.json() == {"llm_initialized": True, "model": "gpt-4o"}
+    assert isinstance(response.json(), list)
+
+def test_get_chats():
+    response = client.get("/api/chats")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+
+def test_drive_search():
+    response = client.get("/api/drive-search")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
