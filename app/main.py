@@ -29,7 +29,7 @@ def startup_event():
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 @app.get("/api/subworkers")
 def get_subworkers(db = Depends(get_db)):

@@ -3,5 +3,12 @@ uvicorn
 sqlalchemy
 psycopg2-binary
 langchain
+langchain-openai
 openai
 google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+jinja2
+httpx
+pytest
+pytest-asyncio
