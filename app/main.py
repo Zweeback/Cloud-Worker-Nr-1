@@ -21,6 +21,9 @@ class SubWorkerCreate(BaseModel):
     name: str
     task: str
 
+class AudioSyncRequest(BaseModel):
+    allowed_sources: list[str]
+
 @app.on_event("startup")
 def startup_event():
     # Initialize some mock connectors on startup
@@ -55,3 +58,8 @@ def ingest_chat(chat: ChatIngest, db = Depends(get_db)):
 def drive_search(query: str = "3D glasses"):
     results = alice.search_google_drive(query)
     return results
+
+@app.post("/api/chats/audio-sync")
+def sync_chat_audio(request: AudioSyncRequest, db = Depends(get_db)):
+    processed_ids = alice.generate_audio_for_chats(request.allowed_sources, db)
+    return {"status": "success", "processed_chat_ids": processed_ids, "voice_profile": "Alice (frz. Akzent, fluesternd)"}

@@ -22,6 +22,7 @@ class ChatLog(Base):
     metadata_json = Column(Text)
     content = Column(Text)
     timestamp = Column(DateTime, default=lambda: datetime.datetime.now(datetime.timezone.utc))
+    audio_file_path = Column(String, nullable=True)
 
 class SubWorker(Base):
     __tablename__ = "subworkers"

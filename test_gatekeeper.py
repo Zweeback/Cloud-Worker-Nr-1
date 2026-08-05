@@ -31,5 +31,27 @@ class TestGatekeeper(unittest.TestCase):
         self.db.commit.assert_called_once()
         self.db.refresh.assert_called_once_with(log)
 
+
+    def test_generate_audio(self):
+        mock_query = MagicMock()
+        self.db.query.return_value = mock_query
+        mock_filter1 = MagicMock()
+        mock_query.filter.return_value = mock_filter1
+        mock_filter2 = MagicMock()
+        mock_filter1.filter.return_value = mock_filter2
+
+        mock_chat = MagicMock()
+        mock_chat.id = 1
+        mock_chat.ai_source = "ChatGPT"
+        mock_chat.audio_file_path = None
+        mock_filter2.all.return_value = [mock_chat]
+
+        processed = self.alice.generate_audio_for_chats(["ChatGPT"], self.db)
+
+        self.assertEqual(len(processed), 1)
+        self.assertEqual(processed[0], 1)
+        self.assertEqual(mock_chat.audio_file_path, "/static/audio/alice_whisper_fr_1.mp3")
+        self.db.commit.assert_called()
+
 if __name__ == '__main__':
     unittest.main()

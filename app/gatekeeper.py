@@ -47,4 +47,25 @@ class Gatekeeper:
         print(f"Ingested chat from {ai_source}")
         return chat_log
 
+
+    def generate_audio_for_chats(self, allowed_sources, db):
+        """
+        VETO-Pruefung: Nur erlaubte AI-Sources werden vertont.
+        Simuliert die Erstellung von Fluester-Audio mit frz. Akzent fuer Alice.
+        """
+        if not allowed_sources:
+            return []
+
+        from .database import ChatLog
+        chats = db.query(ChatLog).filter(ChatLog.ai_source.in_(allowed_sources)).filter(ChatLog.audio_file_path.is_(None)).all()
+        processed = []
+        for chat in chats:
+            # Mock fuer TTS: Alice, frz. Akzent, fluesternd
+            file_name = f"alice_whisper_fr_{chat.id}.mp3"
+            chat.audio_file_path = f"/static/audio/{file_name}"
+            processed.append(chat.id)
+
+        db.commit()
+        return processed
+
 alice = Gatekeeper()
