@@ -1,0 +1,9 @@
+ID: 1
+Topic: AI in 2024 (10:30)
+Transkription: [Flüsternd, frz. Akzent] Bonjour... Willkommen zu unserem Podcast über künstliche Intelligenz. Die Maschinen... sie lernen schnell.
+Audio Pfad: /static/audio/alice_whisper_fr_1.mp3
+
+ID: 2
+Topic: Future of Web Agents (12:15)
+Transkription: [Flüsternd, frz. Akzent] Ah, les agents du web. Sie schleichen durch das Netz... sammeln Daten, immer unbemerkt.
+Audio Pfad: /static/audio/alice_whisper_fr_2.mp3
